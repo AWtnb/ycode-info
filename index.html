@@ -87,17 +87,16 @@
                     <td>書籍詳細ページ</td>
                     <td><span v-if="ycode.length"><a :href="url" target="_blank">{{url}}</a></span></td>
                 </tr>
-                <tr>
-                    <td>書名</td>
-                    <td><span v-if="ycode.length">{{ title }}</span></td>
-                </tr>
-                <tr>
-                    <td>著者／編者</td>
-                    <td><span v-if="ycode.length">{{ human }}</span></td>
-                </tr>
             </tbody>
         </table>
-        <div class="cover"><img :src="coverUrl"></div>
+        <div v-if="ycode.length && title.length && human.length">
+            <h2>{{ title }}</h2>
+            <ul>
+                <li>{{ human }}</li>
+                <li>{{ pubdate }}</li>
+            </ul>
+            <div class="cover"><img :src="coverUrl"></div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -130,6 +129,7 @@
                     ycode: "",
                     title: "",
                     human: "",
+                    pubdate: "",
                     coverUrl: "",
                 }
             },
@@ -153,6 +153,14 @@
                     return "https://www.yuhikaku.co.jp/books/detail/" + this.isbn13;
                 },
             },
+            methods: {
+                reset: function () {
+                    this.title = "";
+                    this.human = "";
+                    this.pubdate = "";
+                    this.coverUrl = "";
+                }
+            },
             directives: {
                 focus: {
                     mounted: function (el) {
@@ -163,9 +171,7 @@
             watch: {
                 ycode: function () {
                     if (this.ycode.length != 5) {
-                        this.title = "";
-                        this.human = "";
-                        this.coverUrl = "";
+                        this.reset();
                         return;
                     }
                     axios.get(`https://api.openbd.jp/v1/get?isbn=${this.isbn13}`).then((response) => {
@@ -174,7 +180,11 @@
                             const summary = data.summary;
                             this.title = summary.title;
                             this.human = summary.author;
+                            this.pubdate = summary.pubdate;
                             this.coverUrl = summary.cover;
+                        }
+                        else {
+                            this.reset();
                         }
                     })
                 }
