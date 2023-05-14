@@ -77,20 +77,30 @@
             <tbody v-cloak>
                 <tr>
                     <td>13桁</td>
-                    <td v-if="ycode.length">{{isbn13}}</td>
+                    <td><span v-if="ycode.length">{{isbn13}}</span></td>
                 </tr>
                 <tr>
                     <td>13桁（ハイフン入り）</td>
-                    <td v-if="ycode.length">{{isbn13fmt}}</td>
+                    <td><span v-if="ycode.length">{{isbn13fmt}}</span></td>
                 </tr>
                 <tr>
                     <td>書籍詳細ページ</td>
-                    <td v-if="ycode.length"><a :href="url" target="_blank">{{url}}</a></td>
+                    <td><span v-if="ycode.length"><a :href="url" target="_blank">{{url}}</a></span></td>
+                </tr>
+                <tr>
+                    <td>書名</td>
+                    <td><span v-if="ycode.length">{{ title }}</span></td>
+                </tr>
+                <tr>
+                    <td>著者／編者</td>
+                    <td><span v-if="ycode.length">{{ human }}</span></td>
                 </tr>
             </tbody>
         </table>
+        <div class="cover"><img :src="coverUrl"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         const getCheckDigit = (isbn) => {
             const total = String(isbn).split("").map((n, i) => {
@@ -118,6 +128,9 @@
             data: function () {
                 return {
                     ycode: "",
+                    title: "",
+                    human: "",
+                    coverUrl: "",
                 }
             },
             computed: {
@@ -145,6 +158,25 @@
                     mounted: function (el) {
                         el.select();
                     }
+                }
+            },
+            watch: {
+                ycode: function () {
+                    if (this.ycode.length != 5) {
+                        this.title = "";
+                        this.human = "";
+                        this.coverUrl = "";
+                        return;
+                    }
+                    axios.get(`https://api.openbd.jp/v1/get?isbn=${this.isbn13}`).then((response) => {
+                        const data = response.data[0];
+                        if (data) {
+                            const summary = data.summary;
+                            this.title = summary.title;
+                            this.human = summary.author;
+                            this.coverUrl = summary.cover;
+                        }
+                    })
                 }
             }
         }).mount("#app");
