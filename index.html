@@ -170,7 +170,7 @@
             },
             watch: {
                 ycode: function () {
-                    if (this.ycode.length != 5) {
+                    if (this.ycode.length < 5) {
                         this.reset();
                         return;
                     }
