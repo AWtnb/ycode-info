@@ -1,196 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Chrome / Firefox / Edge -->
-    <link rel="icon"
-        href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20style%3D%22dominant-baseline%3Acentral%3Btext-anchor%3Amiddle%3Bfont-size%3A90px%3B%22%3E%F0%9F%93%9A%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20style%3D%22dominant-baseline%3Acentral%3Btext-anchor%3Amiddle%3Bfont-size%3A90px%3B%22%3E%F0%9F%93%9A%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E"
+    />
     <!-- Safari / IE -->
-    <link rel="icon alternate" type="image/png"
-        href="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/72x72/1f4da.png" />
-    <base target="_blank">
-    <link rel="stylesheet" type="text/css" href="./mu.css">
+    <link
+      rel="icon alternate"
+      type="image/png"
+      href="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/72x72/1f4da.png"
+    />
+    <base target="_blank" />
+    <link rel="stylesheet" type="text/css" href="./mu.css" />
     <style>
-        table {
-            margin: 24px auto;
-            border-top: 2px #dddddd solid;
-        }
+      table {
+        margin: 24px auto;
+        border-top: 2px #dddddd solid;
+      }
 
-        [v-cloak] {
-            display: none;
-        }
+      [v-cloak] {
+        display: none;
+      }
     </style>
     <title>5桁コード変換</title>
-</head>
+  </head>
 
-<body>
-    <a href="https://github.com/AWtnb/ycode-info" class="github-corner" aria-label="View source on GitHub"><svg
-            width="80" height="80" viewBox="0 0 250 250"
-            style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-            <path
-                d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-                fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-            <path
-                d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-                fill="currentColor" class="octo-body"></path>
-        </svg></a>
+  <body>
+    <a
+      href="https://github.com/AWtnb/ycode-info"
+      class="github-corner"
+      aria-label="View source on GitHub"
+      ><svg
+        width="80"
+        height="80"
+        viewBox="0 0 250 250"
+        style="
+          fill: #151513;
+          color: #fff;
+          position: absolute;
+          top: 0;
+          border: 0;
+          right: 0;
+        "
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg
+    ></a>
     <style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+
+      @media (max-width: 500px) {
         .github-corner:hover .octo-arm {
-            animation: octocat-wave 560ms ease-in-out
+          animation: none;
         }
 
-        @keyframes octocat-wave {
-
-            0%,
-            100% {
-                transform: rotate(0)
-            }
-
-            20%,
-            60% {
-                transform: rotate(-25deg)
-            }
-
-            40%,
-            80% {
-                transform: rotate(10deg)
-            }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
         }
-
-        @media (max-width:500px) {
-            .github-corner:hover .octo-arm {
-                animation: none
-            }
-
-            .github-corner .octo-arm {
-                animation: octocat-wave 560ms ease-in-out
-            }
-        }
+      }
     </style>
     <h1>5桁コード変換</h1>
     <div id="app">
-        <input type="tel" ref="userInput" v-model="ycode" v-focus>
-        <table>
-            <tbody v-cloak>
-                <tr>
-                    <td>13桁</td>
-                    <td><span v-if="ycode.length">{{isbn13}}</span></td>
-                </tr>
-                <tr>
-                    <td>13桁（ハイフン入り）</td>
-                    <td><span v-if="ycode.length">{{isbn13fmt}}</span></td>
-                </tr>
-                <tr>
-                    <td>書籍詳細ページ</td>
-                    <td><span v-if="ycode.length"><a :href="url" target="_blank">{{url}}</a></span></td>
-                </tr>
-            </tbody>
-        </table>
-        <div v-if="ycode.length && title.length && human.length">
-            <h2>{{ title }}</h2>
-            <ul>
-                <li>{{ human }}</li>
-                <li>{{ pubdate }}</li>
-            </ul>
-            <div class="cover"><img :src="coverUrl"></div>
-        </div>
+      <input type="tel" ref="userInput" v-model="ycode" v-focus />
+      <table>
+        <tbody v-cloak>
+          <tr>
+            <td>13桁</td>
+            <td><span v-if="ycode.length">{{isbn13}}</span></td>
+          </tr>
+          <tr>
+            <td>13桁（ハイフン入り）</td>
+            <td><span v-if="ycode.length">{{isbn13fmt}}</span></td>
+          </tr>
+          <tr>
+            <td>書籍詳細ページ</td>
+            <td
+              ><span v-if="ycode.length"
+                ><a :href="url" target="_blank">{{url}}</a></span
+              ></td
+            >
+          </tr>
+        </tbody>
+      </table>
+      <div v-if="ycode.length && title.length && human.length">
+        <h2>{{ title }}</h2>
+        <ul>
+          <li>{{ human }}</li>
+          <li>{{ pubdate }}</li>
+        </ul>
+        <div class="cover"><img :src="coverUrl" /></div>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        const getCheckDigit = (isbn) => {
-            const total = String(isbn).split("").map((n, i) => {
-                if (i % 2 == 0) {
-                    return Number(n);
-                }
-                return Number(n) * 3;
-            }).reduce((accum, x) => {
-                return accum + Number(x)
-            }, 0);
-            return ((10 - (total % 10))) % 10;
-        }
-
-        const toHalfWidth = (s) => {
-            return s.replace(/[\uff21-\uff3a\uff41-\uff5a\uff10-\uff19]/g, (s) => {
-                return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
-            });
-        }
-
-        const formatIsbn = (s) => {
-            return s.substr(0, 3) + "-" + s.substr(3, 1) + "-" + s.substr(4, 3) + "-" + s.substr(7, 5) + "-" + s.substr(12, 1);
-        }
-
-        const vm = Vue.createApp({
-            data: function () {
-                return {
-                    ycode: "",
-                    title: "",
-                    human: "",
-                    pubdate: "",
-                    coverUrl: "",
-                }
-            },
-            computed: {
-                fiveCode: function () {
-                    return toHalfWidth(this.ycode).replace(/[^0-9]/g, "").substr(0, 5);
-                },
-                isbn12: function () {
-                    return "9784641" + String(this.fiveCode);
-                },
-                checkDigit: function () {
-                    return getCheckDigit(this.isbn12);
-                },
-                isbn13: function () {
-                    return `${this.isbn12}${this.checkDigit}`;
-                },
-                isbn13fmt: function () {
-                    return formatIsbn(this.isbn13);
-                },
-                url: function () {
-                    return "https://www.yuhikaku.co.jp/books/detail/" + this.isbn13;
-                },
-            },
-            methods: {
-                reset: function () {
-                    this.title = "";
-                    this.human = "";
-                    this.pubdate = "";
-                    this.coverUrl = "";
-                }
-            },
-            directives: {
-                focus: {
-                    mounted: function (el) {
-                        el.select();
-                    }
-                }
-            },
-            watch: {
-                ycode: function () {
-                    if (this.ycode.length < 5) {
-                        this.reset();
-                        return;
-                    }
-                    axios.get(`https://api.openbd.jp/v1/get?isbn=${this.isbn13}`).then((response) => {
-                        const data = response.data[0];
-                        if (data) {
-                            const summary = data.summary;
-                            this.title = summary.title;
-                            this.human = summary.author;
-                            this.pubdate = summary.pubdate;
-                            this.coverUrl = summary.cover;
-                        }
-                        else {
-                            this.reset();
-                        }
-                    })
-                }
+      const getCheckDigit = (isbn) => {
+        const total = String(isbn)
+          .split("")
+          .map((n, i) => {
+            if (i % 2 == 0) {
+              return Number(n);
             }
-        }).mount("#app");
-    </script>
-</body>
+            return Number(n) * 3;
+          })
+          .reduce((accum, x) => {
+            return accum + Number(x);
+          }, 0);
+        return (10 - (total % 10)) % 10;
+      };
 
+      const toHalfWidth = (s) => {
+        return s.replace(/[\uff21-\uff3a\uff41-\uff5a\uff10-\uff19]/g, (s) => {
+          return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+        });
+      };
+
+      const formatIsbn = (s) => {
+        return (
+          s.substr(0, 3) +
+          "-" +
+          s.substr(3, 1) +
+          "-" +
+          s.substr(4, 3) +
+          "-" +
+          s.substr(7, 5) +
+          "-" +
+          s.substr(12, 1)
+        );
+      };
+
+      const vm = Vue.createApp({
+        data: function () {
+          return {
+            ycode: "",
+            title: "",
+            human: "",
+            pubdate: "",
+            coverUrl: "",
+          };
+        },
+        computed: {
+          fiveCode: function () {
+            return toHalfWidth(this.ycode)
+              .replace(/[^0-9]/g, "")
+              .substr(0, 5);
+          },
+          isbn12: function () {
+            return "9784641" + String(this.fiveCode);
+          },
+          checkDigit: function () {
+            return getCheckDigit(this.isbn12);
+          },
+          isbn13: function () {
+            return `${this.isbn12}${this.checkDigit}`;
+          },
+          isbn13fmt: function () {
+            return formatIsbn(this.isbn13);
+          },
+          url: function () {
+            return "https://www.yuhikaku.co.jp/books/detail/" + this.isbn13;
+          },
+        },
+        methods: {
+          reset: function () {
+            this.title = "";
+            this.human = "";
+            this.pubdate = "";
+            this.coverUrl = "";
+          },
+        },
+        directives: {
+          focus: {
+            mounted: function (el) {
+              el.select();
+            },
+          },
+        },
+        watch: {
+          ycode: function () {
+            if (this.ycode.length < 5) {
+              this.reset();
+              return;
+            }
+            axios
+              .get(`https://api.openbd.jp/v1/get?isbn=${this.isbn13}`)
+              .then((response) => {
+                const data = response.data[0];
+                if (data) {
+                  const summary = data.summary;
+                  this.title = summary.title;
+                  this.human = summary.author;
+                  this.pubdate = summary.pubdate;
+                  this.coverUrl = summary.cover;
+                } else {
+                  this.reset();
+                }
+              });
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
 </html>
